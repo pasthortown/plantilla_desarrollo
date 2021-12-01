@@ -212,7 +212,7 @@ services:
     env_file:
     - ./variables.env
     volumes:
-      ./templates_exporter:/usr/src/app/Templates
+    - ./templates_exporter:/usr/src/app/Templates
     networks:
       plantilla_net:
         ipv4_address: 172.95.0.25
@@ -224,7 +224,7 @@ services:
     env_file:
     - ./variables.env
     volumes:
-      ./templates_mailer:/usr/src/app/Templates
+    - ./templates_mailer:/usr/src/app/Templates
     networks:
       plantilla_net:
         ipv4_address: 172.95.0.26
@@ -234,7 +234,7 @@ services:
     - "6077:80"
     restart: always
     volumes:
-      ./assets:/usr/local/apache2/htdocs/assets
+    - ./assets:/usr/local/apache2/htdocs/assets
     networks:
       plantilla_net:
         ipv4_address: 172.95.0.27
