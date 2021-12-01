@@ -204,4 +204,76 @@ services:
         ipv4_address: 172.95.0.24
     links:
     - mongo_files
-    
+  exporter:
+    image: pasthortown/exporter:http
+    restart: always
+    ports:
+    - "6075:5050"
+    env_file:
+    - ./variables.env
+    volumes:
+      ./templates_exporter:/usr/src/app/Templates
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.25
+  mail:
+    image: pasthortown/mailer:http
+    restart: always
+    ports:
+    - "6076:5050"
+    env_file:
+    - ./variables.env
+    volumes:
+      ./templates_mailer:/usr/src/app/Templates
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.26
+  assets:
+    image: httpd:latest
+    ports:
+    - "6077:80"
+    restart: always
+    volumes:
+      ./assets:/usr/local/apache2/htdocs/assets
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.27
+  main_data:
+    image: pasthortown/catalog-admin:http
+    restart: always
+    ports:
+    - "6078:5050"
+    env_file:
+    - ./variables.env
+    environment:
+      mongo_bdd: main_data
+      mongo_bdd_server: mongo_main_data
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.28
+    links:
+    - mongo_main_data
+  mongo_main_data:
+    image: mongo:latest
+    restart: always
+    volumes:
+    - ./db/mongo_main_data:/data/db
+    env_file:
+    - ./variables.env
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.29
+  mongo_main_data_express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+    - "9078:8081"
+    env_file:
+    - ./variables.env
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo_main_data
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.30
+    links:
+    - mongo_main_data
