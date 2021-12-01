@@ -1,0 +1,129 @@
+version: '3'
+
+networks:
+  plantilla_net:
+    ipam:
+      config:
+        - subnet: 172.95.0.0/24
+
+services:
+  auth:
+    image: pasthortown/auth:http
+    restart: always
+    ports:
+    - "6070:5050"
+    env_file:
+    - ./variables.env
+    environment:
+      mongo_bdd: authentication
+      mongo_bdd_server: mongo_auth
+    volumes:
+    - ./templates_auth:/usr/src/app/Templates
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.10
+    links:
+    - mongo_auth
+  mongo_auth:
+    image: mongo:latest
+    restart: always
+    volumes:
+    - ./db/mongo_auth_data:/data/db
+    env_file:
+    - ./variables.env
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.11
+  mongo_auth_express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+    - "9070:8081"
+    env_file:
+    - ./variables.env
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo_auth
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.12
+    links:
+    - mongo_auth
+  audit:
+    image: pasthortown/audit:http
+    restart: always
+    ports:
+    - "6071:5050"
+    env_file:
+    - ./variables.env
+    environment:
+      mongo_bdd: audithory
+      mongo_bdd_server: mongo_audit
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.13
+    links:
+    - mongo_audit
+  mongo_audit:
+    image: mongo:latest
+    restart: always
+    volumes:
+    - ./db/mongo_audit_data:/data/db
+    env_file:
+    - ./variables.env
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.14
+  mongo_audit_express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+    - "9071:8081"
+    env_file:
+    - ./variables.env
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo_audit
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.15
+    links:
+    - mongo_audit
+  catalog:
+    image: pasthortown/catalog-admin:http
+    restart: always
+    ports:
+    - "6072:5050"
+    env_file:
+    - ./variables.env
+    environment:
+      mongo_bdd: catalog
+      mongo_bdd_server: mongo_catalog
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.16
+    links:
+    - mongo_catalog
+  mongo_catalog:
+    image: mongo:latest
+    restart: always
+    volumes:
+    - ./db/mongo_catalog_data:/data/db
+    env_file:
+    - ./variables.env
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.17
+  mongo_catalog_express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+    - "9072:8081"
+    env_file:
+    - ./variables.env
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo_catalog
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.18
+    links:
+    - mongo_catalog
+    
