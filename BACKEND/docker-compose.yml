@@ -127,7 +127,7 @@ services:
     links:
     - mongo_catalog
   catalog_dmz:
-    image: pasthortown/catalog-admin:http
+    image: pasthortown/catalog-dmz-admin:http
     restart: always
     ports:
     - "6073:5050"
