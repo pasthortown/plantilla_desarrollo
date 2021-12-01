@@ -165,4 +165,43 @@ services:
         ipv4_address: 172.95.0.21
     links:
     - mongo_catalog_dmz
+  files:
+    image: pasthortown/file-admin:http
+    restart: always
+    ports:
+    - "6074:5050"
+    env_file:
+    - ./variables.env
+    environment:
+      mongo_bdd: files
+      mongo_bdd_server: mongo_files
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.22
+    links:
+    - mongo_files
+  mongo_files:
+    image: mongo:latest
+    restart: always
+    volumes:
+    - ./db/mongo_files_data:/data/db
+    env_file:
+    - ./variables.env
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.23
+  mongo_files_express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+    - "9074:8081"
+    env_file:
+    - ./variables.env
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo_files
+    networks:
+      plantilla_net:
+        ipv4_address: 172.95.0.24
+    links:
+    - mongo_files
     
