@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-12">
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo Electrónico</label>
+      <span *ngIf="!email_validated" class="ml-2 badge badge-danger">Incorrecto</span>
+      <input type="email" class="form-control" id="email" placeholder="Ingrese el Correo Electrónico" [(ngModel)]="user.email" (input)="validate_email()">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="mb-3">
+      <label for="fullname" class="form-label">Nombre Completo</label>
+      <span *ngIf="user.fullname == ''" class="ml-2 badge badge-danger">Incorrecto</span>
+      <input type="text" class="form-control" id="fullname" placeholder="Ingrese su Nombre Completo" [(ngModel)]="user.fullname">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 text-center">
+    <div class="btn-group m-2" role="group">
+      <button type="button" class="btn btn-primary btn-sm" (click)="register()">Crear Cuenta</button>
+      <button type="button" class="ml-2 btn btn-danger btn-sm" (click)="change_page('Autenticación')">Cancelar</button>
+    </div>
+  </div>
+</div>
