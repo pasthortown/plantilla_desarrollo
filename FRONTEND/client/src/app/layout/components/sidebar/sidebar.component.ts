@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  is_toggled() {
+  is_toggled(): boolean {
     const dom: any = document.querySelector('body');
     return dom.classList.contains('push-right');
   }

@@ -11,7 +11,6 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router) {
     this.router.events.subscribe( val => {
       if ( val instanceof NavigationEnd && window.innerWidth <= 992 && this.is_toggled()) {
-        console.log('entre');
         this.toggle_sidebar();
       }
     });
@@ -20,7 +19,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  is_toggled() {
+  is_toggled(): boolean {
     const dom: any = document.querySelector('body');
     return dom.classList.contains('push-right');
   }
