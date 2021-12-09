@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +16,7 @@ export class AuthComponent implements OnInit {
 
   constructor( private authDataService: AuthService,
                private spinner: NgxSpinnerService,
-               private toastr: ToastrService) { }
+               private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -24,10 +25,27 @@ export class AuthComponent implements OnInit {
     this.opcion.emit(opcion);
   }
 
-  login() {
+  show_alert(title: string, message: string, icon: SweetAlertIcon): Promise<any> {
+    return Swal.fire({
+      title: title,
+      html: message,
+      icon: icon,
+    });
+  }
 
+  login() {
+    this.spinner.show();
     this.authDataService.login(this.email, this.password).then( r => {
-      console.log(r);
+      this.spinner.hide();
+      if (r.status == 200) {
+        sessionStorage.setItem('token', r.token);
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.show_alert('Autenticación', r.response, 'error').then( response => {
+          this.email = '';
+          this.password = '';
+        });
+      }
     }).catch( e => { console.log(e); });
   }
 }

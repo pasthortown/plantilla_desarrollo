@@ -1,15 +1,15 @@
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)"  size = "medium" color = "rgb(197, 197, 197)" type = "ball-spin" [fullScreen] = "true">
   <p style="color: rgb(255, 255, 255)" > Procesando información, por favor espere... </p>
 </ngx-spinner>
-<div class="wallpaper">
+<div class="wallpaper" style="background-image: url('{{ws_assets}}wallpaper.jpg');">
   <div class="row">
     <div class="col-2">
       <i class="m-2 fas fa-brain fa-2x text-light"></i>
     </div>
     <div class="col-10 text-right">
       <div class="btn-group m-2" role="group">
-        <button type="button" class="btn btn-light btn-sm">Ayuda</button>
-        <button type="button" class="btn btn-light btn-sm">Manual</button>
+        <a type="button" class="btn btn-light btn-sm" target="_blank" [href]="ayuda_url">Ayuda</a>
+        <a class="btn btn-light btn-sm" [href]="ws_assets + 'manual.pdf'" target="_blank">Manual</a>
       </div>
     </div>
   </div>
