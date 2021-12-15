@@ -1,3 +1,23 @@
 <nav class="sidebar bg-dark">
-
+  <div class="list-group">
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('profile')">
+        <span><i class="m-2 fas fa-user"></i><small>{{user.fullname}}</small></span>
+      </a>
+      <li class="nested" [class.expand]="showMenu == 'profile'">
+        <ul class="submenu">
+          <li>
+            <a [routerLink]="['/profile']" [routerLinkActive]="['router-link-active']">
+              Perfil
+            </a>
+          </li>
+          <li>
+            <a (click)="logout()">
+              Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </li>
+    </div>
+  </div>
 </nav>

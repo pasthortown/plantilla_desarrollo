@@ -5,4 +5,25 @@
   <button class="navbar-toggler" type="button" (click)="toggle_sidebar()">
     <i class="fa fa-bars text-muted"></i>
   </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown" ngbDropdown>
+        <a
+          href="javascript:void(0)"
+          class="nav-link text-light"
+          ngbDropdownToggle
+        >
+          <span><i class="m-2 fas fa-user"></i><small>{{user.fullname}}</small></span>
+        </a>
+        <div class="dropdown-menu-right" ngbDropdownMenu>
+          <a class="dropdown-item" [routerLink]="['/profile']" [routerLinkActive]="['router-link-active']">
+            Perfil
+          </a>
+          <a class="dropdown-item" (click)="logout()">
+            Cerrar Sesión
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
 </nav>

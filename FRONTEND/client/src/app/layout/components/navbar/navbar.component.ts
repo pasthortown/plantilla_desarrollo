@@ -1,5 +1,5 @@
 import { NavigationEnd, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  @Input('user') user: any = {};
 
   constructor(private router: Router) {
     this.router.events.subscribe( val => {
@@ -27,5 +28,10 @@ export class NavbarComponent implements OnInit {
   toggle_sidebar() {
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-right');
+  }
+
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
