@@ -1,0 +1,66 @@
+<div class="row p-2">
+  <h1 class="col-12 text-right">
+    Edición de Perfil
+  </h1>
+</div>
+<div class="row p-2">
+  <div class="col-12">
+    <table class="table table-hover mt-2">
+      <tbody>
+        <tr>
+          <th class="col-6 text-right">Correo Electrónico</th>
+          <td class="col-6 text-left">
+            <label class="form-control">{{user.email}}</label>
+          </td>
+        </tr>
+        <tr>
+          <th class="col-6 text-right">Nombre Completo</th>
+          <td class="col-6 text-left">
+            <input type="text" class="form-control" placeholder="Nombre Completo" [(ngModel)]="user.fullname"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="col-12 mt-5 text-center">Cambio de Contraseña</h3>
+  <div class="col-12">
+    <table class="table table-hover mt-2">
+      <tbody>
+        <tr>
+          <th class="col-6 text-right">Nueva Contraseña</th>
+          <td class="col-6 text-left">
+            <input type="password" class="form-control" placeholder="Nueva Contraseña" [(ngModel)]="new_password" (input)="validate_password()"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="col-6 text-right">Confirmar Contraseña</th>
+          <td class="col-6 text-left">
+            <input type="password" class="form-control" placeholder="Confirmar Contraseña" [(ngModel)]="password_confirm" (input)="validate_password()"/>
+          </td>
+        </tr>
+        <tr *ngIf="new_password !== ''">
+          <td class="text-center" colspan="2">
+            <div class="row mt-1" *ngFor="let error of errores">
+              <div class="col-3"></div>
+              <span class="badge bg-danger col-6 text-light">{{ error }}</span>
+              <div class="col-3"></div>
+            </div>
+            <div class="row" *ngIf="errores.length == 0">
+              <div class="col-2"></div>
+              <div class="col-8 alert alert-success" role="alert">
+                Contraseña Válida
+              </div>
+              <div class="col-2"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 text-center mt-3">
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+      <button type="button" class="btn btn-success" (click)="save_profile()" [disabled]="errores.length !== 0">Guardar</button>
+      <button type="button" class="btn btn-warning" (click)="reset()">Cancelar</button>
+    </div>
+  </div>
+</div>

@@ -39,6 +39,7 @@ export class AuthComponent implements OnInit {
       this.spinner.hide();
       if (r.status == 200) {
         sessionStorage.setItem('token', r.token);
+        sessionStorage.setItem('user', JSON.stringify(r.userdata));
         this.router.navigate(['/dashboard']);
       } else {
         this.show_alert('Autenticación', r.response, 'error').then( response => {

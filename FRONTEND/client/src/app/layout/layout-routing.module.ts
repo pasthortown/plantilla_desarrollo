@@ -10,6 +10,18 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('src/app/layout/dashboard-page/dashboard-page.module').then(m => m.DashboardPageModule)
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('src/app/layout/profile-page/profile-page.module').then(m => m.ProfilePageModule)
+      },
+      {
+        path: 'not-found',
+        loadChildren: () => import('src/app/layout/not-found-page/not-found-page.module').then(m => m.NotFoundPageModule)
+      },
+      {
+         path: '**',
+         redirectTo: 'not-found'
       }
     ]
   }
