@@ -6,6 +6,7 @@ export const environment = {
   production: false,
 
   api_auth: 'http://localhost:6070/',
+  api_catalog: 'http://localhost:6072/',
   ws_assets: 'http://localhost:6077/assets/',
   ayuda_url: 'https://github.com/pasthortown/plantilla_desarrollo'
 };

@@ -1,23 +1,54 @@
 <nav class="sidebar bg-dark">
   <div class="list-group">
-    <div class="nested-menu">
-      <a class="list-group-item" (click)="addExpandClass('profile')">
-        <span><i class="m-2 fas fa-user"></i><small>{{user.fullname}}</small></span>
-      </a>
-      <li class="nested" [class.expand]="showMenu == 'profile'">
-        <ul class="submenu">
-          <li>
-            <a [routerLink]="['/profile']" [routerLinkActive]="['router-link-active']">
-              Perfil
-            </a>
-          </li>
-          <li>
-            <a (click)="logout()">
-              Cerrar Sesión
-            </a>
-          </li>
-        </ul>
-      </li>
+    <div *ngFor="let item of menu">
+      <div *ngIf="item.class == ''">
+        <span *ngFor="let list_group_item of item.items">
+          <a *ngIf="aviable(list_group_item.rols_able)"
+             [routerLink]="[list_group_item.link]"
+             [routerLinkActive]="['router-link-active']"
+             [class]="list_group_item.class">
+             <i [class]="list_group_item.icon" style="width:25px;"></i>&nbsp;&nbsp;&nbsp;<small [innerHtml]="list_group_item.text"></small>
+          </a>
+        </span>
+      </div>
+      <div *ngIf="item.class == 'nested-menu'" [class]="item.class">
+        <a *ngIf="aviable(item.rols_able)" class="list-group-item" (click)="addExpandClass(item.expand_class)">
+          <span><i [class]="item.icon" style="width:25px;"></i>&nbsp;&nbsp;&nbsp;<small [innerHtml]="item.text"></small></span>
+        </a>
+        <li class="nested" [class.expand]="showMenu == item.expand_class">
+          <ul class="submenu">
+            <li *ngFor="let list_group_item of item.items">
+              <a *ngIf="aviable(list_group_item.rols_able)"
+                [routerLink]="[list_group_item.link]"
+                [routerLinkActive]="['router-link-active']"
+                [class]="list_group_item.class">
+                <i [class]="list_group_item.icon" style="width:25px;"></i>&nbsp;&nbsp;&nbsp;<small [innerHtml]="list_group_item.text"></small>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+    <div>
+      <div class="nested-menu">
+        <a class="list-group-item" (click)="addExpandClass('profile')">
+          <span><i class="fas fa-user" style="width:25px;"></i>&nbsp;&nbsp;&nbsp;<small>{{user.fullname}}</small></span>
+        </a>
+        <li class="nested" [class.expand]="showMenu == 'profile'">
+          <ul class="submenu">
+            <li>
+              <a [routerLink]="['/profile']" [routerLinkActive]="['router-link-active']">
+                Perfil
+              </a>
+            </li>
+            <li>
+              <a (click)="logout()">
+                Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
     </div>
   </div>
 </nav>
