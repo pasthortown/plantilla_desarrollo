@@ -1,1 +1,59 @@
-<p>admin-rols-page works!</p>
+<div class="row p-2">
+  <h1 class="col-12 text-right">
+    Administración de Roles del Sistema
+  </h1>
+</div>
+<div class="row p-2">
+  <div class="col-12" style="overflow-x: auto;">
+    <table class="table table-hover mt-2" style="min-width: 800px">
+      <thead>
+        <tr>
+          <th class="col-3">Seleccionado</th>
+          <th class="col-6">Rol</th>
+          <th class="col-3">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td><input type="text" class="form-control" id="new_rol_name" [(ngModel)]="new_rol.nombre"/></td>
+          <td>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-success" title="Guardar" (click)="save_new_rol()">
+                <i class="fas fa-save"></i>
+              </button>
+              <button type="button" class="btn btn-danger" title="Cancelar" (click)="refresh()">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let rol of rols" (click)="select_rol(rol)">
+          <td class="text-right">
+            <span *ngIf="rol_selected == rol" class="far fa-hand-point-right"></span>
+          </td>
+          <td>
+            <span *ngIf="rol_selected !== rol || (rol_selected == rol && !editing)">{{rol.nombre}}</span>
+            <input *ngIf="rol_selected == rol && editing" type="text" class="form-control" [(ngModel)]="rol.nombre"/>
+          </td>
+          <td>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-warning" title="Editar" (click)="edit_rol()" [disabled]="editing" *ngIf="rol_selected == rol && !editing">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-danger" title="Cancelar Edición" (click)="edit_rol()" *ngIf="rol_selected == rol && editing">
+                <i class="fas fa-history"></i>
+              </button>
+              <button type="button" class="btn btn-success" title="Guardar" *ngIf="rol_selected == rol && editing" (click)="update_rol(rol)">
+                <i class="fas fa-save"></i>
+              </button>
+              <button type="button" class="btn btn-danger" title="Eliminar" [disabled]="rol_selected == rol && editing" (click)="delete_rol(rol)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

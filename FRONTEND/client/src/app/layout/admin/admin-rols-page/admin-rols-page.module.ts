@@ -1,3 +1,4 @@
+import { CatalogService } from 'src/app/services/catalog.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -15,6 +16,8 @@ import { FormsModule } from '@angular/forms';
     AdminRolsPageRoutingModule,
     FormsModule
   ],
-  providers: []
+  providers: [
+    CatalogService
+  ]
 })
 export class AdminRolsPageModule { }
