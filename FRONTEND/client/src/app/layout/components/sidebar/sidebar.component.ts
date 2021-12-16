@@ -31,7 +31,6 @@ export class SidebarComponent implements OnInit {
     dom.classList.toggle('push-right');
   }
 
-
   logout() {
     sessionStorage.clear();
     this.router.navigate(['/login']);
