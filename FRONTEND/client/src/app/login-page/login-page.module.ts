@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { AuthComponent } from './components/auth/auth.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 import { RegisterComponent } from './components/register/register.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -23,8 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CommonModule,
     LoginPageRoutingModule,
     FormsModule,
-    ToastrModule,
-    NgxSpinnerModule
+    ToastrModule
   ],
   providers: [AuthService]
 })
