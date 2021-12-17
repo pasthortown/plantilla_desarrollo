@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    sessionStorage.clear();
   }
 
   change_page(opcion: string) {

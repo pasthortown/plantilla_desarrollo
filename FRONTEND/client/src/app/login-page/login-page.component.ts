@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 @Component({
@@ -11,10 +12,11 @@ export class LoginPageComponent implements OnInit {
   ws_assets: string = environment.ws_assets + 'login/';
   ayuda_url: string = environment.ayuda_url;
 
-  constructor() { }
+  constructor(private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     sessionStorage.clear();
+    this.spinner.hide();
   }
 
 }

@@ -19,6 +19,7 @@ export class AuthComponent implements OnInit {
                private router: Router) { }
 
   ngOnInit(): void {
+    sessionStorage.clear();
   }
 
   change_page(opcion: string) {
